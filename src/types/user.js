@@ -8,16 +8,6 @@ module.exports = gql`
     rounds: [Round]
   }
 
-  type userInGame {
-    id: ID!
-    score: Int
-  }
-
-  type userInRound {
-    id: ID!
-    choice: String
-  }
-
   type returnSetUserChoice {
     userId: ID!
     choice: String
@@ -46,5 +36,6 @@ module.exports = gql`
 
   type Query {
     getUsers: [User!]!
+    getGamesByUser(userId: ID!): [Game!]!
   }
 `;

@@ -8,6 +8,11 @@ module.exports = gql`
     user2: userInRound
   }
 
+  type userInRound {
+    id: ID!
+    choice: String
+  }
+
   input CreateRoundInput {
     game: ID!
     user1: userInRoundInput

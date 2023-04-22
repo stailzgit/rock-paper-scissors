@@ -10,6 +10,11 @@ module.exports = gql`
     endGameScore: Int
   }
 
+  type userInGame {
+    id: ID!
+    score: Int
+  }
+
   input CreateGameInput {
     userId1: ID!
     userId2: ID!
