@@ -1,3 +1,5 @@
-const Rock_Paper_Scissors = require("./typesMain");
+const User = require("./user");
+const Game = require("./game");
+const Round = require("./round");
 
-module.exports = [Rock_Paper_Scissors];
+module.exports = [User, Game, Round];
