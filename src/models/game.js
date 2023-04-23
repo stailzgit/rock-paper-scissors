@@ -14,7 +14,7 @@ const Game = mongoose.model(
       id: { type: ObjectId, ref: "User" },
       score: { type: Number, default: 0 },
     },
-    winner: { type: ObjectId, ref: "User" },
+    winnerGame: { type: ObjectId, ref: "User" },
     rounds: [{ type: ObjectId, ref: "Round" }],
     endGameScore: { type: Number, default: 1 },
   })

@@ -5,7 +5,7 @@ module.exports = gql`
     id: ID!
     user1: userInGame
     user2: userInGame
-    winner: User
+    winnerGame: User
     rounds: [Round]
     endGameScore: Int
   }

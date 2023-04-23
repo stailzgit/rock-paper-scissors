@@ -6,11 +6,17 @@ module.exports = gql`
     game: ID!
     user1: userInRound
     user2: userInRound
+    winnerRound: User
   }
 
   type userInRound {
     id: ID!
-    choice: String
+    pick: String
+  }
+
+  type returnRoundUserPick {
+    userId: ID!
+    pick: String
   }
 
   input CreateRoundInput {
@@ -19,8 +25,15 @@ module.exports = gql`
     user2: userInRoundInput
   }
 
+  input roundUserPickInput {
+    roundId: ID!
+    userId: ID!
+    pick: String
+  }
+
   type Mutation {
     createRound(input: CreateRoundInput!): Round!
+    roundUserPick(input: roundUserPickInput!): Round!
   }
 
   type Query {
