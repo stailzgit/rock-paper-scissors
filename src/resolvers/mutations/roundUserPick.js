@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
+const { ObjectId } = mongoose.Types;
 
 module.exports = async (_, { input }, { models }) => {
   const findRound = await models.Round.findById({
@@ -8,33 +8,29 @@ module.exports = async (_, { input }, { models }) => {
   });
 
   //Pick for user1
-  if (String(findRound.user1.id) === input.userId)
+  if (String(findRound.user1.id) === String(input.userId))
     findRound.user1.pick = input.pick;
+
   //Pick for user2
-  if (String(findRound.user2.id) === input.userId)
+  if (String(findRound.user2.id) === String(input.userId))
     findRound.user2.pick = input.pick;
 
   //End round if 2 users made pick
   if (findRound.user1.pick && findRound.user2.pick) {
     findRound.winnerRound = getWinnerRound(findRound.user1, findRound.user2);
-    console.log("findRound.winnerRound", findRound.winnerRound);
   } else {
     return await findRound.save();
   }
 
   //Check end game if max score
-  if (findRound.winnerRound) {
-    const {
-      findGame: user1,
-      user2,
-      endGameScore,
-    } = models.Game.findById({ _id: findRound.game });
-
-    console.log("user1.id", user1.id);
+  if (findRound.winnerRound !== null) {
+    const findGame = await models.Game.findById({
+      _id: findRound.game,
+    });
     //Inc score for winner Round
-    if (String(findGame.user1.id) === findRound.winnerRound)
+    if (String(findGame.user1.id) === String(findRound.winnerRound))
       findGame.user1.score += 1;
-    if (String(findGame.user2.id) === findRound.winnerRound)
+    if (String(findGame.user2.id) === String(findRound.winnerRound))
       findGame.user2.score += 1;
 
     //If max score then end Game
@@ -46,9 +42,7 @@ module.exports = async (_, { input }, { models }) => {
     await findGame.save();
   }
 
-  const returnRoundUserPick = await findRound.save();
-
-  return returnRoundUserPick;
+  return await findRound.save();
 };
 
 const getWinnerRound = (user1, user2) => {
