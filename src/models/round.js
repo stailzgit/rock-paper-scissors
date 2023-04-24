@@ -10,7 +10,7 @@ const Round = mongoose.model(
     winnerRound: { type: ObjectId, ref: "User" },
     user1: {
       id: { type: ObjectId, ref: "User" },
-      pick: { type: String },
+      pick: { type: String, enum: ["ROCK", "PAPER", "SCISSORS"] },
     },
     user2: {
       id: { type: ObjectId, ref: "User" },

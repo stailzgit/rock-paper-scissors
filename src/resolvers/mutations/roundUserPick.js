@@ -27,11 +27,12 @@ module.exports = async (_, { input }, { models }) => {
     const findGame = await models.Game.findById({
       _id: findRound.game,
     });
+
     //Inc score for winner Round
     if (String(findGame.user1.id) === String(findRound.winnerRound))
-      findGame.user1.score += 1;
+      findGame.user1.score++;
     if (String(findGame.user2.id) === String(findRound.winnerRound))
-      findGame.user2.score += 1;
+      findGame.user2.score++;
 
     //If max score then end Game
     if (findGame.user1.score === findGame.endGameScore)
@@ -47,14 +48,10 @@ module.exports = async (_, { input }, { models }) => {
 
 const getWinnerRound = (user1, user2) => {
   if (user1.pick === user2.pick) return null;
-  if (user1.pick === "rock" && user2.pick === "scissors") return user1.id;
-  if (user1.pick === "rock" && user2.pick === "paper") return user2.id;
-  if (user1.pick === "paper" && user2.pick === "rock") return user1.id;
-  if (user1.pick === "paper" && user2.pick === "scissors") return user2.id;
-  if (user1.pick === "scissors" && user2.pick === "paper") return user1.id;
-  if (user1.pick === "scissors" && user2.pick === "rock") return user2.id;
-};
-
-const addUserScore = (roundId, winnerId) => {
-  find().where("_id").in(ids);
+  if (user1.pick === "ROCK" && user2.pick === "SCISSORS") return user1.id;
+  if (user1.pick === "ROCK" && user2.pick === "PAPER") return user2.id;
+  if (user1.pick === "PAPER" && user2.pick === "ROCK") return user1.id;
+  if (user1.pick === "PAPER" && user2.pick === "SCISSORS") return user2.id;
+  if (user1.pick === "SCISSORS" && user2.pick === "PAPER") return user1.id;
+  if (user1.pick === "SCISSORS" && user2.pick === "ROCK") return user2.id;
 };

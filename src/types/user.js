@@ -12,11 +12,6 @@ module.exports = gql`
     name: String!
   }
 
-  input userInRoundInput {
-    id: ID!
-    pick: String
-  }
-
   type Mutation {
     createUser(input: CreateUserInput!): User!
   }

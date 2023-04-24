@@ -11,24 +11,30 @@ module.exports = gql`
 
   type userInRound {
     id: ID!
-    pick: String
+    pick: PickEnum
   }
 
-  type returnRoundUserPick {
-    userId: ID!
-    pick: String
+  enum PickEnum {
+    ROCK
+    PAPER
+    SCISSORS
+  }
+
+  input userInRoundInput {
+    id: ID!
+    pick: PickEnum
   }
 
   input CreateRoundInput {
     game: ID!
-    user1: userInRoundInput
-    user2: userInRoundInput
+    user1: userInRoundInput!
+    user2: userInRoundInput!
   }
 
   input roundUserPickInput {
     roundId: ID!
     userId: ID!
-    pick: String
+    pick: PickEnum
   }
 
   type Mutation {
