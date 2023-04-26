@@ -9,11 +9,11 @@ const Round = mongoose.model(
     game: { type: ObjectId, ref: "Game" },
     winnerRound: { type: ObjectId, ref: "User" },
     user1: {
-      id: { type: ObjectId, ref: "User" },
+      user: { type: ObjectId, ref: "User" },
       pick: { type: String, enum: ["ROCK", "PAPER", "SCISSORS"] },
     },
     user2: {
-      id: { type: ObjectId, ref: "User" },
+      user: { type: ObjectId, ref: "User" },
       pick: { type: String },
     },
   })

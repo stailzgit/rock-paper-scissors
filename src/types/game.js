@@ -5,13 +5,13 @@ module.exports = gql`
     id: ID!
     user1: userInGame
     user2: userInGame
-    winnerGame: ID
+    winnerGame: User
     rounds: [Round]
     endGameScore: Int
   }
 
   type userInGame {
-    id: ID!
+    id: User
     score: Int
   }
 

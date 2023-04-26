@@ -7,11 +7,11 @@ const Game = mongoose.model(
 
   new Schema({
     user1: {
-      id: { type: ObjectId, ref: "User" },
+      user: { type: ObjectId, ref: "User" },
       score: { type: Number, default: 0 },
     },
     user2: {
-      id: { type: ObjectId, ref: "User" },
+      user: { type: ObjectId, ref: "User" },
       score: { type: Number, default: 0 },
     },
     winnerGame: { type: ObjectId, ref: "User" },
