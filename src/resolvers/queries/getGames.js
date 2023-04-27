@@ -19,7 +19,6 @@ module.exports = async (_, {}, { models }) => {
         score: game._doc.user2.score,
       },
       winnerGame: supportUser.bind(this, game._doc.winnerGame),
-      rounds: supportRounds.bind(this, game._doc.rounds),
     }));
   } catch (err) {
     throw err;

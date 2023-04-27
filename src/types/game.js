@@ -11,7 +11,7 @@ module.exports = gql`
   }
 
   type userInGame {
-    id: User
+    user: User
     score: Int
   }
 

@@ -4,8 +4,6 @@ const getRounds = require("./getRounds.js");
 const getRoundsByGame = require("./getRoundsByGame.js");
 const getGamesByUser = require("./getGamesByUser.js");
 
-const Queries = require("./");
-
 module.exports = {
   getUsers,
   getGames,

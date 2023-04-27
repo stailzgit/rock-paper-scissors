@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Types;
-const { Game } = require("../../models");
 
 module.exports = async (_, { input }, { models }) => {
   console.log(input);
-  const newGame = new Game(input);
+  const newGame = new models.Game(input);
 
   newGame.user1 = { id: input.userId1, score: 0 };
   newGame.user2 = { id: input.userId2, score: 0 };
@@ -20,5 +19,7 @@ module.exports = async (_, { input }, { models }) => {
   await user1.save();
   await user2.save();
 
-  return createdGame;
+  return {
+    ...createdGame,
+  };
 };

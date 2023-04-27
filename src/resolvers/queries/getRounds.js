@@ -2,7 +2,7 @@
 //   return await models.Round.find({});
 // };
 
-const { supportUser, supportGames } = require("../supportFunctions");
+const { supportUser, supportGames } = require("../supportResolvers");
 
 // module.exports = async (_, {}, { models }) => {
 //   return await models.Game.find({}).populate("rounds");

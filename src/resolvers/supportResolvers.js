@@ -1,6 +1,9 @@
-const games = async (_, { gamesIds }, { models }) => {
+const { Game } = require("../models/game");
+
+const supportGames = async (gamesIds) => {
+  console.log("gamesIds", gamesIds);
   try {
-    const games = await models.Game.find({ _id: { $in: gamesIds } });
+    const games = await Game.find({ _id: { $in: gamesIds } });
     return games.map((game) => ({
       ...game._doc,
       user1: {
@@ -17,7 +20,7 @@ const games = async (_, { gamesIds }, { models }) => {
   }
 };
 
-const rounds = async (_, { roundsIds }, { models }) => {
+const supportRounds = async (_, { roundsIds }, { models }) => {
   try {
     const rounds = await models.Round.find({ _id: { $in: roundsIds } });
     return rounds.map((round) => ({
@@ -36,7 +39,7 @@ const rounds = async (_, { roundsIds }, { models }) => {
   }
 };
 
-const user = async (_, { usersId }, { models }) => {
+const supportUser = async (_, { usersId }, { models }) => {
   try {
     const user = await models.User.findById(usersId);
     return {

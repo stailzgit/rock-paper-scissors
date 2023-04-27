@@ -10,7 +10,7 @@ module.exports = gql`
   }
 
   type userInRound {
-    id: User
+    user: User
     pick: PickEnum
   }
 
