@@ -3,7 +3,7 @@ const getGames = require("./getGames.js");
 const getRounds = require("./getRounds.js");
 const getRoundsByGame = require("./getRoundsByGame.js");
 const getGamesByUser = require("./getGamesByUser.js");
-const supportFunctions = require("./supportFunctions.js");
+const supportResolvers = require("./supportResolvers.js");
 
 const Queries = require("./");
 
@@ -13,5 +13,5 @@ module.exports = {
   getRounds,
   getRoundsByGame,
   getGamesByUser,
-  supportFunctions,
+  supportResolvers,
 };

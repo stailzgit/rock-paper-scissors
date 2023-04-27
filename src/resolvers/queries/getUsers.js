@@ -1,4 +1,4 @@
-const { games } = require("./supportFunctions");
+const { games, rounds } = require("./supportFunctions");
 module.exports = async (_, {}, { models }) => {
   models.User.find({});
 
@@ -7,6 +7,7 @@ module.exports = async (_, {}, { models }) => {
     return users.map((user) => ({
       ...user._doc,
       games: games.bind(this, user._doc.games),
+      rounds: rounds.bind(this, user._doc.games),
     }));
   } catch (err) {
     throw err;

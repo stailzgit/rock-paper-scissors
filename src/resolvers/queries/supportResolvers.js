@@ -23,11 +23,11 @@ const rounds = async (_, { roundsIds }, { models }) => {
     return rounds.map((round) => ({
       ...round._doc,
       user1: {
-        id: user.bind(this, round._doc.user1.user),
+        user: user.bind(this, round._doc.user1.user),
         pick: round._doc.user1.pick,
       },
       user2: {
-        id: user.bind(this, round._doc.user2.user),
+        user: user.bind(this, round._doc.user2.user),
         pick: round._doc.user2.pick,
       },
     }));
