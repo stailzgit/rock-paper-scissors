@@ -49,4 +49,4 @@ const user = async (_, { usersId }, { models }) => {
   }
 };
 
-module.exports = { user, games, rounds };
+module.exports = { supportUser, supportGames, supportRounds };

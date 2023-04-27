@@ -1,4 +1,5 @@
-const { games, rounds } = require("./supportFunctions");
+const { supportGames, supportRounds } = require("../supportResolvers");
+
 module.exports = async (_, {}, { models }) => {
   models.User.find({});
 
