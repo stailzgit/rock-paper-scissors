@@ -13,17 +13,17 @@ module.exports = async (_, {}, { models }) => {
     const rounds = await models.Round.find({});
 
     return rounds.map((round) => ({
-      ...round._doc,
-      game: supportGames.bind(this, round._doc.game),
+      ...round,
+      game: supportGames(round.game),
       user1: {
-        user: supportUser.bind(this, round._doc.user1.user),
-        pick: round._doc.user1.pick,
+        user: supportUser(round.user1.user),
+        pick: round.user1.pick,
       },
       user2: {
-        user: supportUser.bind(this, round._doc.user2.user),
-        pick: round._doc.user2.pick,
+        user: supportUser(round.user2.user),
+        pick: round.user2.pick,
       },
-      winnerRound: supportUser.bind(this, round._doc.winnerRound),
+      winnerRound: supportUser(round.winnerRound),
     }));
   } catch (err) {
     throw err;

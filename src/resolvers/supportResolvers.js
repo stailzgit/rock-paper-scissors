@@ -1,51 +1,53 @@
-const { Game } = require("../models/game");
+const { Game, User, Round } = require("../models");
 
 const supportGames = async (gamesIds) => {
+  // if (!gamesIds) return [];
   console.log("gamesIds", gamesIds);
   try {
     const games = await Game.find({ _id: { $in: gamesIds } });
     return games.map((game) => ({
-      ...game._doc,
+      ...game,
       user1: {
-        user: user.bind(this, game._doc.user1.user),
-        score: game._doc.user1.score,
+        user: supportUser(user1.user),
+        score: game.user1.score,
       },
       user2: {
-        user: user.bind(this, game._doc.user2.user),
-        score: game._doc.user2.score,
+        user: supportUser(game.user2.user),
+        score: game.user2.score,
       },
     }));
-  } catch {
+  } catch (err) {
     throw err;
   }
 };
 
-const supportRounds = async (_, { roundsIds }, { models }) => {
+const supportRounds = async (roundsIds) => {
   try {
-    const rounds = await models.Round.find({ _id: { $in: roundsIds } });
+    const rounds = await Round.find({ _id: { $in: roundsIds } });
     return rounds.map((round) => ({
-      ...round._doc,
+      ...round,
       user1: {
-        user: user.bind(this, round._doc.user1.user),
-        pick: round._doc.user1.pick,
+        user: supportUser(round.user1.user),
+        pick: round.user1.pick,
       },
       user2: {
-        user: user.bind(this, round._doc.user2.user),
-        pick: round._doc.user2.pick,
+        user: supportUser(round.user2.user),
+        pick: round.user2.pick,
       },
     }));
-  } catch {
+  } catch (err) {
     throw err;
   }
 };
 
-const supportUser = async (_, { usersId }, { models }) => {
+const supportUser = async (userId) => {
   try {
-    const user = await models.User.findById(usersId);
+    const user = await User.findById(userId);
+    console.log("usersId", userId);
+    console.log("user", user);
     return {
-      ...user._doc,
-      games: games.bind(this, user._doc.games),
-      rounds: rounds.bind(this, user._doc.rounds),
+      ...user,
+      games: supportGames(user.games),
     };
   } catch (err) {
     throw err;

@@ -7,7 +7,7 @@ module.exports = async (_, {}, { models }) => {
     const users = await models.User.find({});
     return users.map((user) => ({
       ...user._doc,
-      games: supportGames.bind(this, user._doc.games),
+      games: supportGames(user.games),
     }));
   } catch (err) {
     throw err;
