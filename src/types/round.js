@@ -2,7 +2,7 @@ const { gql } = require("apollo-server");
 
 module.exports = gql`
   type Round {
-    _id: ID!
+    id: ID!
     game: Game
     winnerRound: User
     user1: userInRound
@@ -21,7 +21,7 @@ module.exports = gql`
   }
 
   input userInRoundInput {
-    roundId: ID!
+    id: ID!
     pick: PickEnum
   }
 
