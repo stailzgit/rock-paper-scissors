@@ -2,7 +2,7 @@ const { gql } = require("apollo-server");
 
 module.exports = gql`
   type User {
-    id: ID!
+    _id: ID!
     name: String!
     games: [Game]
     # rounds: [Round]
