@@ -6,8 +6,9 @@ const User = mongoose.model(
   "User",
 
   new Schema({
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
     games: [{ type: ObjectId, ref: "Game" }],
+    // rounds: [{ type: ObjectId, ref: "Round" }],
   })
 );
 

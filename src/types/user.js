@@ -5,6 +5,7 @@ module.exports = gql`
     id: ID!
     name: String!
     games: [Game]
+    # rounds: [Round]
   }
 
   input CreateUserInput {

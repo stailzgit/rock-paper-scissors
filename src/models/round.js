@@ -14,7 +14,7 @@ const Round = mongoose.model(
     },
     user2: {
       user: { type: ObjectId, ref: "User" },
-      pick: { type: String },
+      pick: { type: String, enum: ["ROCK", "PAPER", "SCISSORS"] },
     },
   })
 );

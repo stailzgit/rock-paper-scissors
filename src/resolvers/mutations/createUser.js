@@ -1,14 +1,19 @@
-const { supportGames } = require("../supportResolvers");
+// const { transformGame } = require("../merge");
+const { transformUser } = require("../merge");
 
 module.exports = async (_, { input }, { models }) => {
-  const newUser = new models.User(input);
-  const createdUser = await newUser.save();
-  console.log("newUser._doc.games", newUser._doc.games);
-  console.log("newUser._doc.games", newUser.games);
-  console.log("newUser._doc.games", newUser);
-  console.log("createdUser", createdUser);
-  return {
-    ...createdUser,
-    games: supportGames(newUser.games),
-  };
+  try {
+    const newUser = new models.User(input);
+    const createdUser = await newUser.save();
+    return transformUser(createdUser);
+  } catch (err) {
+    throw err;
+  }
+
+  // return {
+  //   ...createdUser._doc,
+  //   id,
+  //   name,
+  // };
+  // return createdUser;
 };
