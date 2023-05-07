@@ -29,6 +29,7 @@ const roundsFormat = async (roundIds) => {
 };
 
 const gameFormat = async (gameId) => {
+  if (!gameId) return null;
   try {
     const game = await gameLoader.load(gameId.toString());
     return transformGame(game);
@@ -38,6 +39,7 @@ const gameFormat = async (gameId) => {
 };
 
 const userFormat = async (userId) => {
+  if (!userId) return null;
   try {
     const user = await userLoader.load(userId.toString());
     return transformUser(user);
@@ -72,18 +74,19 @@ const transformUser = (user) => {
 };
 
 const transformRound = (round) => {
+  const { id, game, winnerRound, user1, user2 } = round;
   return {
     ...round._doc,
-    id: round.id,
-    game: gameFormat.bind(this, round.game),
-    winnerRound: userFormat.bind(this, round.winnerRound),
+    id: id,
+    game: () => gameFormat(game),
+    winnerRound: () => userFormat(winnerRound),
     user1: {
-      user: userFormat.bind(this, round.user1.user),
-      pick: round.user1.pick,
+      user: () => userFormat(user1.user),
+      pick: user1.pick,
     },
     user2: {
-      user: userFormat.bind(this, round.user2.user),
-      pick: round.user2.pick,
+      user: () => userFormat(user2.user),
+      pick: user2.pick,
     },
   };
 };
