@@ -1,19 +1,24 @@
 // const { transformGame } = require("../merge");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { transformUser } = require("../merge");
 
 module.exports = async (_, { input }, { models }) => {
-  try {
-    const newUser = new models.User(input);
-    const createdUser = await newUser.save();
-    return transformUser(createdUser);
-  } catch (err) {
-    throw err;
+  const { name, email, password } = input;
+  const existingUser = await models.User.findOne({ email: email });
+
+  if (existingUser) {
+    throw new Error("User exists already.");
   }
 
-  // return {
-  //   ...createdUser._doc,
-  //   id,
-  //   name,
-  // };
-  // return createdUser;
+  const hashedPassword = await bcrypt.hash(password, 12);
+
+  const user = new models.User({
+    name: name,
+    email: email,
+    password: hashedPassword,
+  });
+
+  const createdUser = await user.save();
+  return transformUser(createdUser);
 };

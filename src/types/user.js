@@ -4,12 +4,26 @@ module.exports = gql`
   type User {
     id: ID!
     name: String!
+    email: String!
+    password: String
     games: [Game]
-    # rounds: [Round]
+  }
+
+  type AuthData {
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
   }
 
   input CreateUserInput {
     name: String!
+    email: String!
+    password: String
+  }
+
+  input LoginInput {
+    email: String!
+    password: String
   }
 
   type Mutation {
@@ -19,5 +33,6 @@ module.exports = gql`
   type Query {
     getUsers: [User!]!
     getGamesByUser(userId: ID!): [Game!]!
+    login(input: LoginInput!): AuthData!
   }
 `;
