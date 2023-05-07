@@ -20,15 +20,15 @@ module.exports = gql`
     SCISSORS
   }
 
-  input userInRoundInput {
-    id: ID!
-    pick: PickEnum
-  }
+  # input userInRoundInput {
+  #   user: ID!
+  #   pick: PickEnum
+  # }
 
   input CreateRoundInput {
-    game: ID!
-    user1: userInRoundInput!
-    user2: userInRoundInput!
+    gameId: ID!
+    userId1: ID!
+    userId2: ID!
   }
 
   input roundUserPickInput {

@@ -3,13 +3,17 @@ const { transformRound } = require("../merge");
 const { ObjectId } = mongoose.Types;
 
 module.exports = async (_, { input }, { models }) => {
-  const newRound = new models.Round(input);
+  const newRound = new models.Round({
+    game: input.gameId,
+    user1: { user: input.userId1 },
+    user2: { user: input.userId2 },
+  });
   const createdRound = await newRound.save();
 
-  const user1 = await models.User.findById(ObjectId(input.user1.user));
-  const user2 = await models.User.findById(ObjectId(input.user2.user));
-  const game = await models.Game.findById(ObjectId(input.game));
-
+  const user1 = await models.User.findById(input.userId1);
+  const user2 = await models.User.findById(input.userId1);
+  const game = await models.Game.findById(input.gameId);
+  console.log("game", game);
   // user1.rounds.push(createdRound.id);
   // user2.rounds.push(createdRound.id);
   game.rounds.push(createdRound.id);

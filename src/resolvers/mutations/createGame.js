@@ -10,14 +10,14 @@ module.exports = async (_, { input }, { models }) => {
   newGame.user2 = { user: input.userId2, score: 0 };
 
   const createdGame = await newGame.save();
-  const user1Find = await models.User.findById(input.userId1);
-  const user2Find = await models.User.findById(input.userId2);
+  // const user1Find = await models.User.findById(input.userId1);
+  // const user2Find = await models.User.findById(input.userId2);
 
-  user1Find.games.push(createdGame.id);
-  user2Find.games.push(createdGame.id);
+  // user1Find.games.push(createdGame.id);
+  // user2Find.games.push(createdGame.id);
 
-  await user1Find.save();
-  await user2Find.save();
+  // await user1Find.save();
+  // await user2Find.save();
 
   return transformGame(createdGame);
 };

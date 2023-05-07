@@ -2,22 +2,18 @@ const DataLoader = require("dataloader");
 
 const { User, Game, Round } = require("../models");
 
-const userLoader = new DataLoader((userIds) => {
-  return User.find({ _id: { $in: userIds } });
-});
+const userLoader = new DataLoader((userIds) =>
+  User.find({ _id: { $in: userIds } })
+);
 
-const gameLoader = new DataLoader((gameIds) => {
-  return gamesFormat(gameIds);
-});
-
-const roundLoader = new DataLoader((roundIds) => roundsFormat(roundIds));
+const gameLoader = new DataLoader((gameIds) =>
+  Game.find({ _id: { $in: gameIds } })
+);
 
 const gamesFormat = async (gameIds) => {
   try {
     const games = await Game.find({ _id: { $in: gameIds } });
-    return games.map((game) => {
-      return transformGame(game);
-    });
+    return games.map((game) => transformGame(game));
   } catch (err) {
     throw err;
   }
@@ -26,36 +22,16 @@ const gamesFormat = async (gameIds) => {
 const roundsFormat = async (roundIds) => {
   try {
     const rounds = await Round.find({ _id: { $in: roundIds } });
-    return rounds.map((round) => {
-      return transformRound(round);
-    });
+    return rounds.map((round) => transformRound(round));
   } catch (err) {
     throw err;
   }
 };
-
-// const singleGamesFormat = async (gameId) => {
-//   try {
-//     const game = await gameLoader.load(gameId.toString());
-//     return game;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
 
 const gameFormat = async (gameId) => {
   try {
-    const game = await Game.find({ _id: { $in: gameId } });
+    const game = await gameLoader.load(gameId.toString());
     return transformGame(game);
-  } catch (err) {
-    throw err;
-  }
-};
-
-const usersFormat = async (userIds) => {
-  try {
-    const users = await User.find({ _id: { $in: userIds } });
-    return users.map((user) => transformUser(user));
   } catch (err) {
     throw err;
   }
@@ -83,7 +59,7 @@ const transformGame = (game) => {
       user: userFormat.bind(this, game.user2.user),
       score: game.user2.score,
     },
-    rounds: () => roundLoader.loadMany(game.rounds),
+    rounds: roundsFormat.bind(this, game.rounds),
   };
 };
 
@@ -99,7 +75,7 @@ const transformRound = (round) => {
   return {
     ...round._doc,
     id: round.id,
-    game: gamesFormat.bind(this, round.game), //
+    game: gameFormat.bind(this, round.game),
     winnerRound: userFormat.bind(this, round.winnerRound),
     user1: {
       user: userFormat.bind(this, round.user1.user),
@@ -117,7 +93,3 @@ module.exports = {
   transformRound,
   transformGame,
 };
-
-exports.transformUser = transformUser;
-exports.transformRound = transformRound;
-exports.transformGame = transformGame;
