@@ -7,15 +7,28 @@ module.exports = gql`
     email: String!
     password: String
     games: [Game]
+    token: String
+    statusGame: statusGame
+  }
+  enum statusGame {
+    OFFLINE
+    ONLINE
+    IN_GAME
+    IN_SEARCH
   }
 
-  type AuthData {
-    userId: ID!
-    token: String!
-    tokenExpiration: Int!
+  # type AuthData {
+  #   userId: ID!
+  #   token: String!
+  #   tokenExpiration: Int!
+  # }
+
+  type setStatusGameReturn {
+    userId: ID
+    statusGame: statusGame
   }
 
-  input CreateUserInput {
+  input RegisterInput {
     name: String!
     email: String!
     password: String
@@ -27,12 +40,14 @@ module.exports = gql`
   }
 
   type Mutation {
-    createUser(input: CreateUserInput!): User!
+    registerUser(input: RegisterInput): User
+    loginUser(input: LoginInput): User
+    setStatusGame(userId: ID!, statusGame: statusGame!): setStatusGameReturn
   }
 
   type Query {
     getUsers: [User!]!
-    getGamesByUser(userId: ID!): [Game!]!
-    login(input: LoginInput!): AuthData!
+    getUserById(userId: ID!): User
+    getGamesByUser(userId: ID!): [Game!]
   }
 `;

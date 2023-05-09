@@ -16,5 +16,7 @@ module.exports = async (_, { input }, { models }) => {
     "somesupersecretkey",
     { expiresIn: "1h" }
   );
-  return { userId: user.id, tokenExpiration: 1, token: token };
+  user.token = token;
+  // return { userId: user.id, tokenExpiration: 1, token: token };
+  return transformUser(user);
 };

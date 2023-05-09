@@ -3,7 +3,7 @@ const getGames = require("./getGames.js");
 const getRounds = require("./getRounds.js");
 const getRoundsByGame = require("./getRoundsByGame.js");
 const getGamesByUser = require("./getGamesByUser.js");
-const login = require("./login.js");
+const getUserById = require("./getUserById.js");
 
 module.exports = {
   getUsers,
@@ -11,5 +11,5 @@ module.exports = {
   getRounds,
   getRoundsByGame,
   getGamesByUser,
-  login,
+  getUserById,
 };
