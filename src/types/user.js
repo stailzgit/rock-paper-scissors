@@ -9,6 +9,8 @@ module.exports = gql`
     games: [Game]
     token: String
     statusGame: statusGame
+    incomingInvitations: [User]
+    outgoingInvitations: [User]
   }
   enum statusGame {
     OFFLINE
