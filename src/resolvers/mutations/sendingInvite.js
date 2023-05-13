@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { transformUser } = require("../transformResolvers");
 const { transformGame } = require("../merge");
 
 module.exports = async (_, { senderId, recipientId }, { models }) => {

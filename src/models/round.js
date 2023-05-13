@@ -7,13 +7,13 @@ const Round = mongoose.model(
 
   new Schema({
     game: { type: ObjectId, ref: "Game" },
-    winnerRound: { type: ObjectId, ref: "User" },
-    user1: {
-      user: { type: ObjectId, ref: "User" },
+    winnerRoundId: { type: ObjectId, ref: "User" },
+    sender: {
+      id: { type: ObjectId, ref: "User" },
       pick: { type: String, enum: ["ROCK", "PAPER", "SCISSORS"] },
     },
-    user2: {
-      user: { type: ObjectId, ref: "User" },
+    recipient: {
+      id: { type: ObjectId, ref: "User" },
       pick: { type: String, enum: ["ROCK", "PAPER", "SCISSORS"] },
     },
   })

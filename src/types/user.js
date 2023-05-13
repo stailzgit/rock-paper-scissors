@@ -44,6 +44,7 @@ module.exports = gql`
   type Mutation {
     registerUser(input: RegisterInput): User
     loginUser(input: LoginInput): User
+    logoutUser(userId: ID!): User
     setStatusGame(userId: ID!, statusGame: statusGame!): setStatusGameReturn
   }
 

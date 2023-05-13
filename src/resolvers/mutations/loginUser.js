@@ -2,8 +2,10 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { transformUser } = require("../merge");
+const { UserStatusGames } = require("../../models/constants");
 
 module.exports = async (_, { input }, { models }) => {
+  console.log("email, password", input);
   const { email, password } = input;
   const user = await models.User.findOne({ email: email });
   if (!user) throw new Error("User does not exist!");
@@ -17,6 +19,9 @@ module.exports = async (_, { input }, { models }) => {
     { expiresIn: "1h" }
   );
   user.token = token;
+  user.statusGame = UserStatusGames.ONLINE;
+  await user.save();
+
   // return { userId: user.id, tokenExpiration: 1, token: token };
   return transformUser(user);
 };

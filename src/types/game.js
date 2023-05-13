@@ -3,21 +3,21 @@ const { gql } = require("apollo-server");
 module.exports = gql`
   type Game {
     id: ID!
-    user1: userInGame
-    user2: userInGame
-    winnerGame: User
+    sender: userInGame
+    recipient: userInGame
+    winnerGameId: User
     rounds: [Round]
     endGameScore: Int
   }
 
   type userInGame {
-    user: User
+    id: User
     score: Int
   }
 
   input CreateGameInput {
-    userId1: ID!
-    userId2: ID!
+    senderId: ID!
+    recipientId: ID!
     endGameScore: Int
   }
 

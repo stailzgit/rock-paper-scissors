@@ -6,38 +6,41 @@ const { ObjectId } = mongoose.Types;
 module.exports = async (_, { input }, { models }) => {
   const findRound = await models.Round.findById({ _id: input.roundId });
 
-  //Pick for user1
-  if (String(findRound.user1.user) === String(input.userId))
-    findRound.user1.pick = input.pick;
+  //Pick for sender
+  if (String(findRound.sender.id) === String(input.userId))
+    findRound.sender.pick = input.pick;
 
-  //Pick for user2
-  if (String(findRound.user2.user) === String(input.userId))
-    findRound.user2.pick = input.pick;
+  //Pick for recipient
+  if (String(findRound.recipient.id) === String(input.userId))
+    findRound.recipient.pick = input.pick;
 
   //End round if 2 users made pick
-  if (findRound.user1.pick && findRound.user2.pick) {
-    findRound.winnerRound = getWinnerRound(findRound.user1, findRound.user2);
+  if (findRound.sender.pick && findRound.recipient.pick) {
+    findRound.winnerRoundId = getWinnerRound(
+      findRound.sender,
+      findRound.recipient
+    );
   } else {
     return await findRound.save();
   }
 
   //Check end game if max score
-  if (findRound.winnerRound !== null) {
+  if (findRound.winnerRoundId !== null) {
     const findGame = await models.Game.findById({
       _id: findRound.game,
     });
 
     //Inc score for winner Round
-    if (String(findGame.user1.user) === String(findRound.winnerRound))
-      findGame.user1.score++;
-    if (String(findGame.user2.user) === String(findRound.winnerRound))
-      findGame.user2.score++;
+    if (String(findGame.sender.id) === String(findRound.winnerRoundId))
+      findGame.sender.score++;
+    if (String(findGame.recipient.id) === String(findRound.winnerRoundId))
+      findGame.recipient.score++;
 
     //If max score then end Game
-    if (findGame.user1.score === findGame.endGameScore)
-      findGame.winnerGame = findGame.user1.user;
-    if (findGame.user2.score === findGame.endGameScore)
-      findGame.winnerGame = findGame.user2.user;
+    if (findGame.sender.score === findGame.endGameScore)
+      findGame.winnerGameId = findGame.sender.user;
+    if (findGame.recipient.score === findGame.endGameScore)
+      findGame.winnerGameId = findGame.recipient.id;
 
     await findGame.save();
   }
@@ -47,12 +50,15 @@ module.exports = async (_, { input }, { models }) => {
   return transformRound(resultRound);
 };
 
-const getWinnerRound = (user1, user2) => {
-  if (user1.pick === user2.pick) return null;
-  if (user1.pick === "ROCK" && user2.pick === "SCISSORS") return user1.user;
-  if (user1.pick === "ROCK" && user2.pick === "PAPER") return user2.user;
-  if (user1.pick === "PAPER" && user2.pick === "ROCK") return user1.user;
-  if (user1.pick === "PAPER" && user2.pick === "SCISSORS") return user2.user;
-  if (user1.pick === "SCISSORS" && user2.pick === "PAPER") return user1.user;
-  if (user1.pick === "SCISSORS" && user2.pick === "ROCK") return user2.user;
+const getWinnerRound = (sender, recipient) => {
+  if (sender.pick === recipient.pick) return null;
+  if (sender.pick === "ROCK" && recipient.pick === "SCISSORS") return sender.id;
+  if (sender.pick === "ROCK" && recipient.pick === "PAPER") return recipient.id;
+  if (sender.pick === "PAPER" && recipient.pick === "ROCK") return sender.id;
+  if (sender.pick === "PAPER" && recipient.pick === "SCISSORS")
+    return recipient.id;
+  if (sender.pick === "SCISSORS" && recipient.pick === "PAPER")
+    return sender.id;
+  if (sender.pick === "SCISSORS" && recipient.pick === "ROCK")
+    return recipient.id;
 };

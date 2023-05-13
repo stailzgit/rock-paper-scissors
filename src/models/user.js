@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { UserStatusGames } = require("./constants");
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
@@ -15,9 +16,9 @@ const User = mongoose.model(
     outgoingInvitations: [{ type: ObjectId, ref: "User" }],
     statusGame: {
       type: String,
-      enum: ["OFFLINE", "ONLINE", "IN_SEARCH", "IN_GAME"],
+      enum: [...Object.values(UserStatusGames)],
       required: true,
-      default: "OFFLINE",
+      default: UserStatusGames.OFFLINE,
     },
   })
 );

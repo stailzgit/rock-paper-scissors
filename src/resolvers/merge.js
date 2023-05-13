@@ -52,14 +52,14 @@ const transformGame = (game) => {
   return {
     ...game._doc,
     id: game.id,
-    winnerGame: userFormat.bind(this, game.winnerGame),
-    user1: {
-      user: userFormat.bind(this, game.user1.user),
-      score: game.user1.score,
+    winnerGameId: userFormat.bind(this, game.winnerGameId),
+    sender: {
+      id: userFormat.bind(this, game.sender.id),
+      score: game.sender.score,
     },
-    user2: {
-      user: userFormat.bind(this, game.user2.user),
-      score: game.user2.score,
+    recipient: {
+      id: userFormat.bind(this, game.recipient.id),
+      score: game.recipient.score,
     },
     rounds: roundsFormat.bind(this, game.rounds),
   };
@@ -74,19 +74,19 @@ const transformUser = (user) => {
 };
 
 const transformRound = (round) => {
-  const { id, game, winnerRound, user1, user2 } = round;
+  const { id, game, winnerRoundId, sender, recipient } = round;
   return {
     ...round._doc,
     id: id,
     game: () => gameFormat(game),
-    winnerRound: () => userFormat(winnerRound),
-    user1: {
-      user: () => userFormat(user1.user),
-      pick: user1.pick,
+    winnerRoundId: () => userFormat(winnerRoundId),
+    sender: {
+      user: () => userFormat(sender.id),
+      pick: sender.pick,
     },
-    user2: {
-      user: () => userFormat(user2.user),
-      pick: user2.pick,
+    recipient: {
+      user: () => userFormat(recipient.user),
+      pick: recipient.pick,
     },
   };
 };

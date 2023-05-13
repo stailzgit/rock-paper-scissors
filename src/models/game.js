@@ -6,16 +6,16 @@ const Game = mongoose.model(
   "Game",
 
   new Schema({
-    user1: {
-      user: { type: ObjectId, ref: "User" },
+    sender: {
+      id: { type: ObjectId, ref: "User" },
       score: { type: Number, default: 0 },
     },
-    user2: {
-      user: { type: ObjectId, ref: "User" },
+    recipient: {
+      id: { type: ObjectId, ref: "User" },
       score: { type: Number, default: 0 },
     },
     rounds: [{ type: ObjectId, ref: "Round" }],
-    winnerGame: { type: ObjectId, ref: "User" },
+    winnerGameId: { type: ObjectId, ref: "User" },
     endGameScore: { type: Number, default: 1 },
   })
 );

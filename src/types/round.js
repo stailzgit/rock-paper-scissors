@@ -4,13 +4,13 @@ module.exports = gql`
   type Round {
     id: ID!
     game: Game
-    winnerRound: User
-    user1: userInRound
-    user2: userInRound
+    winnerRoundId: User
+    sender: userInRound
+    recipient: userInRound
   }
 
   type userInRound {
-    user: User
+    id: User
     pick: PickEnum
   }
 
@@ -27,8 +27,8 @@ module.exports = gql`
 
   input CreateRoundInput {
     gameId: ID!
-    userId1: ID!
-    userId2: ID!
+    senderId: ID!
+    recipientId: ID!
   }
 
   input roundUserPickInput {
