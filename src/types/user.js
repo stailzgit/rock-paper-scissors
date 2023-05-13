@@ -48,6 +48,7 @@ module.exports = gql`
   type Query {
     getUsers: [User!]!
     getUserById(userId: ID!): User
+    getUsersByStatusGame(statusGame: statusGame!, excludeMe: ID!): [User]
     getGamesByUser(userId: ID!): [Game!]
   }
 `;

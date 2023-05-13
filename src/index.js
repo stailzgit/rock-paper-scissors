@@ -3,13 +3,13 @@ const connectDB = require("./config/db");
 const typeDefs = require("./types");
 const resolvers = require("./resolvers");
 const models = require("./models");
-
+const authContext = require("./middleware/auth");
 connectDB();
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: { models },
+  context: { models, authContext },
   csrfPrevention: true,
   cors: {
     origin: "*",

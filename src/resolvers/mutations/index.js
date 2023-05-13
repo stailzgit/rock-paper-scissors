@@ -2,7 +2,8 @@ const registerUser = require("./registerUser");
 const createGame = require("./createGame");
 const createRound = require("./createRound");
 const roundUserPick = require("./roundUserPick");
-const loginUser = require("../mutations/loginUser.js");
+const loginUser = require("./loginUser.js");
+const setStatusGame = require("./setStatusGame.js");
 
 module.exports = {
   createGame,
@@ -10,4 +11,5 @@ module.exports = {
   createRound,
   roundUserPick,
   loginUser,
+  setStatusGame,
 };

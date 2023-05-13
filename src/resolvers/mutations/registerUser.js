@@ -2,6 +2,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { transformUser } = require("../merge");
+const { ApolloError } = require("apollo-server");
 
 module.exports = async (_, { input }, { models }) => {
   const { name, email, password } = input;
