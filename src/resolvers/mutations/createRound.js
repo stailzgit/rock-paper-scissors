@@ -11,7 +11,6 @@ module.exports = async (_, { input }, { models }) => {
   const createdRound = await newRound.save();
 
   const game = await models.Game.findById(input.gameId);
-  console.log("game", game);
 
   game.rounds.push(createdRound.id);
 

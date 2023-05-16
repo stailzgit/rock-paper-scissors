@@ -5,6 +5,7 @@ const roundUserPick = require("./roundUserPick");
 const loginUser = require("./loginUser.js");
 const setStatusGame = require("./setStatusGame.js");
 const logoutUser = require("./logoutUser.js");
+const sendingInvite = require("./sendingInvite.js");
 
 module.exports = {
   createGame,
@@ -14,4 +15,5 @@ module.exports = {
   loginUser,
   setStatusGame,
   logoutUser,
+  sendingInvite,
 };

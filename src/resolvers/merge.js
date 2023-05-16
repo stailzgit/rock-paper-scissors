@@ -28,6 +28,15 @@ const roundsFormat = async (roundIds) => {
   }
 };
 
+const usersFormat = async (userIds) => {
+  try {
+    const users = await User.find({ _id: { $in: userIds } });
+    return users.map((user) => transformUser(user));
+  } catch (err) {
+    throw err;
+  }
+};
+
 const gameFormat = async (gameId) => {
   if (!gameId) return null;
   try {
@@ -55,11 +64,15 @@ const transformGame = (game) => {
     winnerGameId: userFormat.bind(this, game.winnerGameId),
     sender: {
       id: userFormat.bind(this, game.sender.id),
-      score: game.sender.score,
+      ...game.sender,
+      // score: game.sender.score,
+      // status: game.sender.status,
     },
     recipient: {
       id: userFormat.bind(this, game.recipient.id),
-      score: game.recipient.score,
+      ...game.recipient,
+      // score: game.recipient.score,
+      // status: game.recipient.status,
     },
     rounds: roundsFormat.bind(this, game.rounds),
   };
@@ -70,6 +83,8 @@ const transformUser = (user) => {
     ...user._doc,
     id: user.id,
     games: gamesFormat.bind(this, user.games),
+    outgoingInvitations: usersFormat.bind(this, user.outgoingInvitations),
+    incomingInvitations: usersFormat.bind(this, user.incomingInvitations),
   };
 };
 

@@ -4,6 +4,11 @@ const typeDefs = require("./types");
 const resolvers = require("./resolvers");
 const models = require("./models");
 const authContext = require("./middleware/auth");
+// import { createServer } from "http";
+// import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+// import { makeExecutableSchema } from "@graphql-tools/schema";
+// import { WebSocketServer } from "ws";
+// import { useServer } from "graphql-ws/lib/use/ws";
 connectDB();
 
 const server = new ApolloServer({

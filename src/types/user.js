@@ -46,6 +46,7 @@ module.exports = gql`
     loginUser(input: LoginInput): User
     logoutUser(userId: ID!): User
     setStatusGame(userId: ID!, statusGame: statusGame!): setStatusGameReturn
+    sendingInvite(senderId: ID!, recipientId: ID!): [User]
   }
 
   type Query {

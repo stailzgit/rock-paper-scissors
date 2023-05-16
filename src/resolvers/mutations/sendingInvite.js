@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { transformGame } = require("../merge");
+const { transformGame, transformUser } = require("../merge");
 
 module.exports = async (_, { senderId, recipientId }, { models }) => {
   try {
@@ -19,9 +19,10 @@ module.exports = async (_, { senderId, recipientId }, { models }) => {
 
     const updateSender = await sender.save();
     const updateRecipient = await recipient.save();
-    console.log("updateUser", updateUser);
+    console.log("updateSender", updateSender);
+    console.log("updateRecipient", updateRecipient);
 
-    return { userId, statusGame };
+    return [transformUser(updateSender), transformUser(updateSender)];
   } catch (error) {
     throw error;
   }
