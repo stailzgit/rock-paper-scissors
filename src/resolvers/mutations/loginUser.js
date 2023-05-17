@@ -2,7 +2,7 @@
 import compare from "bcryptjs";
 import sign from "jsonwebtoken";
 import { transformUser } from "../merge.js";
-import { UserStatus } from "../../models/constants.js";
+import { UserStatus } from "../../support/constants.js";
 
 export default async (_, { input }, { models }) => {
   const { email, password } = input;

@@ -1,9 +1,9 @@
 import mongoose, { model } from "mongoose";
-import { UserStatus } from "./constants.js";
+import { UserStatus } from "../support/constants.js";
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-export default model(
+export const User = model(
   "User",
 
   new Schema({

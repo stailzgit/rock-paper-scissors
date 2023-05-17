@@ -14,7 +14,7 @@ import { ApolloServer } from "@apollo/server";
 import typeDefs from "./types/index.js";
 // const typeDefs = require("./types");
 import * as resolvers from "./resolvers/index.js";
-import * as models from "./models/index.js";
+import { models } from "./models/index.js";
 import authContext from "./middleware/auth.js";
 import connectDB from "./config/db.js";
 
@@ -39,7 +39,7 @@ const serverCleanup = useServer({ schema }, wsServer);
 
 const server = new ApolloServer({
   schema,
-  context: { models },
+  // context: { models },
   // context: async ({ req }) => ({ token: req.headers.token }),
   csrfPrevention: true,
   cors: {
@@ -70,5 +70,5 @@ app.use("/graphql", cors(), json(), expressMiddleware(server));
 const PORT = 4000;
 // Now that our HTTP server is fully set up, we can listen to it.
 httpServer.listen(PORT, () => {
-  console.log(`Server is now running on http://localhost:${PORT}/graphql`);
+  console.log(`Server run http://localhost:${PORT}/graphql`);
 });

@@ -1,9 +1,9 @@
 import mongoose, { model } from "mongoose";
-import { RecipientStatus, SenderStatus } from "./constants.js";
+import { RecipientStatus, SenderStatus } from "../support/constants.js";
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-export default model(
+export const Game = model(
   "Game",
 
   new Schema({

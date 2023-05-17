@@ -2,7 +2,7 @@ import mongoose, { model } from "mongoose";
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-export default model(
+export const Round = model(
   "Round",
 
   new Schema({

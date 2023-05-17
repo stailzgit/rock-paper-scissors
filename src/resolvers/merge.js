@@ -1,6 +1,7 @@
 import DataLoader from "dataloader";
 
-import { User, Game, Round } from "../models/index.js";
+import * as models from "../models/index.js";
+const { User, Game, Round } = models;
 
 export const userLoader = new DataLoader((userIds) =>
   User.find({ _id: { $in: userIds } })
