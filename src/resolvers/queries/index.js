@@ -1,12 +1,12 @@
-const getUsers = require("./getUsers.js");
-const getGames = require("./getGames.js");
-const getRounds = require("./getRounds.js");
-const getRoundsByGame = require("./getRoundsByGame.js");
-const getGamesByUser = require("./getGamesByUser.js");
-const getUserById = require("./getUserById.js");
-const getUsersByStatusGame = require("./getUsersByStatusGame.js");
+import getUsers from "./getUsers.js";
+import getGames from "./getGames.js";
+import getRounds from "./getRounds.js";
+import getRoundsByGame from "./getRoundsByGame.js";
+import getGamesByUser from "./getGamesByUser.js";
+import getUserById from "./getUserById.js";
+import getUsersByStatusGame from "./getUsersByStatusGame.js";
 
-module.exports = {
+export default {
   getUsers,
   getGames,
   getRounds,

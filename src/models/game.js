@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-const { RecipientStatus, SenderStatus } = require("./constants");
+import mongoose, { model } from "mongoose";
+import { RecipientStatus, SenderStatus } from "./constants.js";
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const Game = mongoose.model(
+export default model(
   "Game",
 
   new Schema({
@@ -30,5 +30,3 @@ const Game = mongoose.model(
     endGameScore: { type: Number, default: 1 },
   })
 );
-
-module.exports = { Game };

@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-const { transformRound } = require("../merge");
+import mongoose, { Types } from "mongoose";
+import { transformRound } from "../merge.js";
 const { Schema } = mongoose;
-const { ObjectId } = mongoose.Types;
+const { ObjectId } = Types;
 
-module.exports = async (_, { input }, { models }) => {
+export default async (_, { input }, { models }) => {
   const findRound = await models.Round.findById({ _id: input.roundId });
 
   //Pick for sender

@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const { transformGame, transformUser } = require("../merge");
+import mongoose from "mongoose";
+import { transformGame, transformUser } from "../merge.js";
 
-module.exports = async (_, { senderId, recipientId }, { models }) => {
+export default async (_, { senderId, recipientId }, { models }) => {
   try {
     const sender = await models.User.findById({ _id: senderId });
     const recipient = await models.User.findById({ _id: recipientId });

@@ -1,5 +1,7 @@
-const { Game } = require("./game.js");
-const { User } = require("./user.js");
-const { Round } = require("./round.js");
+// import { Game } from "./game.js";
+// import { User } from "./user.js";
+// import { Round } from "./round.js";
 
-module.exports = { Game, User, Round };
+export { default as Game } from "./game.js";
+export { default as User } from "./user.js";
+export { default as Round } from "./round.js";

@@ -1,10 +1,10 @@
 // const { transformGame } = require("../merge");
-const { transformUser } = require("../merge");
-const { UserStatusGames } = require("../../models/constants");
+import { transformUser } from "../merge.js";
+import { UserStatus } from "../../models/constants.js";
 
-module.exports = async (_, { userId }, { models }) => {
+export default async (_, { userId }, { models }) => {
   const user = await models.User.findById({ _id: userId });
-  user.statusGame = UserStatusGames.OFFLINE;
+  user.statusGame = UserStatus.OFFLINE;
   await user.save();
 
   return transformUser(user);

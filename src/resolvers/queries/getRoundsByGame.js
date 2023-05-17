@@ -1,6 +1,6 @@
-const { transformRound } = require("../merge");
+import { transformRound } from "../merge.js";
 
-module.exports = async (_, { gameId }, { models }) => {
+export default async (_, { gameId }, { models }) => {
   const findRounds = await models.Round.find({ game: gameId });
   return findRounds.map((round) => transformRound(round));
 };

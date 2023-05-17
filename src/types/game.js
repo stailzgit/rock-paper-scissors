@@ -1,6 +1,6 @@
-const { gql } = require("apollo-server");
+import gql from "graphql-tag";
 
-module.exports = gql`
+export default gql`
   type Game {
     id: ID!
     sender: userInGame

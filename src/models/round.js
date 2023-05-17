@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+import mongoose, { model } from "mongoose";
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const Round = mongoose.model(
+export default model(
   "Round",
 
   new Schema({
@@ -18,5 +18,3 @@ const Round = mongoose.model(
     },
   })
 );
-
-module.exports = { Round };

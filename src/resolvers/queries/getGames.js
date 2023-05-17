@@ -1,6 +1,6 @@
-const { transformGame } = require("../merge");
+import { transformGame } from "../merge.js";
 
-module.exports = async (_, {}, { models }) => {
+export default async (_, {}, { models }) => {
   try {
     const games = await models.Game.find({});
     return games.map((game) => transformGame(game));

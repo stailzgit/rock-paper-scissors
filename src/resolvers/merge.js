@@ -1,16 +1,16 @@
-const DataLoader = require("dataloader");
+import DataLoader from "dataloader";
 
-const { User, Game, Round } = require("../models");
+import { User, Game, Round } from "../models/index.js";
 
-const userLoader = new DataLoader((userIds) =>
+export const userLoader = new DataLoader((userIds) =>
   User.find({ _id: { $in: userIds } })
 );
 
-const gameLoader = new DataLoader((gameIds) =>
+export const gameLoader = new DataLoader((gameIds) =>
   Game.find({ _id: { $in: gameIds } })
 );
 
-const gamesFormat = async (gameIds) => {
+export const gamesFormat = async (gameIds) => {
   try {
     const games = await Game.find({ _id: { $in: gameIds } });
     return games.map((game) => transformGame(game));
@@ -19,7 +19,7 @@ const gamesFormat = async (gameIds) => {
   }
 };
 
-const roundsFormat = async (roundIds) => {
+export const roundsFormat = async (roundIds) => {
   try {
     const rounds = await Round.find({ _id: { $in: roundIds } });
     return rounds.map((round) => transformRound(round));
@@ -28,7 +28,7 @@ const roundsFormat = async (roundIds) => {
   }
 };
 
-const usersFormat = async (userIds) => {
+export const usersFormat = async (userIds) => {
   try {
     const users = await User.find({ _id: { $in: userIds } });
     return users.map((user) => transformUser(user));
@@ -37,7 +37,7 @@ const usersFormat = async (userIds) => {
   }
 };
 
-const gameFormat = async (gameId) => {
+export const gameFormat = async (gameId) => {
   if (!gameId) return null;
   try {
     const game = await gameLoader.load(gameId.toString());
@@ -47,7 +47,7 @@ const gameFormat = async (gameId) => {
   }
 };
 
-const userFormat = async (userId) => {
+export const userFormat = async (userId) => {
   if (!userId) return null;
   try {
     const user = await userLoader.load(userId.toString());
@@ -57,7 +57,7 @@ const userFormat = async (userId) => {
   }
 };
 
-const transformGame = (game) => {
+export const transformGame = (game) => {
   return {
     ...game._doc,
     id: game.id,
@@ -78,7 +78,7 @@ const transformGame = (game) => {
   };
 };
 
-const transformUser = (user) => {
+export const transformUser = (user) => {
   return {
     ...user._doc,
     id: user.id,
@@ -88,7 +88,7 @@ const transformUser = (user) => {
   };
 };
 
-const transformRound = (round) => {
+export const transformRound = (round) => {
   const { id, game, winnerRoundId, sender, recipient } = round;
   return {
     ...round._doc,
@@ -106,8 +106,8 @@ const transformRound = (round) => {
   };
 };
 
-module.exports = {
-  transformUser,
-  transformRound,
-  transformGame,
-};
+// export default {
+//   transformUser,
+//   transformRound,
+//   transformGame,
+// };

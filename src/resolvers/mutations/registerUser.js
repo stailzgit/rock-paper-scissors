@@ -1,21 +1,21 @@
 // const { transformGame } = require("../merge");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { transformUser } = require("../merge");
-const { ApolloError } = require("apollo-server");
+import hash from "bcryptjs";
+import sign from "jsonwebtoken";
+import { transformUser } from "../merge.js";
+// import { Apollo } from "@apollo/server";
 
-module.exports = async (_, { input }, { models }) => {
+export default async (_, { input }, { models }) => {
   const { name, email, password } = input;
   const existingUser = await models.User.findOne({ email: email });
 
   if (existingUser) {
-    throw new ApolloError(
+    throw new Error(
       "A user is already registered with the email " + email,
       "USER_ALREADY_EXIST"
     );
   }
 
-  const encryptedPassword = await bcrypt.hash(password, 10);
+  const encryptedPassword = await hash(password, 10);
 
   const newUser = new models.User({
     name,
@@ -23,7 +23,7 @@ module.exports = async (_, { input }, { models }) => {
     password: encryptedPassword,
   });
 
-  const token = jwt.sign({ userId: newUser.id.email }, "UNSAVE_STRING", {
+  const token = sign({ userId: newUser.id.email }, "UNSAVE_STRING", {
     expiresIn: "2h",
   });
 

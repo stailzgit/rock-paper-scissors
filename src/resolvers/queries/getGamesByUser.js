@@ -1,6 +1,6 @@
-const { transformGame } = require("../merge");
+import { transformGame } from "../merge.js";
 
-module.exports = async (_, { userId }, { models }) => {
+export default async (_, { userId }, { models }) => {
   const findGames = await models.Game.find({
     $or: [{ "sender.id": userId }, { "recipient.id": userId }],
   });

@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const { transformRound } = require("../merge");
-const { ObjectId } = mongoose.Types;
+import { Types } from "mongoose";
+import { transformRound } from "../merge.js";
+const { ObjectId } = Types;
 
-module.exports = async (_, { input }, { models }) => {
+export default async (_, { input }, { models }) => {
   const newRound = new models.Round({
     game: input.gameId,
     sender: { id: input.senderId },

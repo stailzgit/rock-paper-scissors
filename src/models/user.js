@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-const { UserStatus } = require("./constants");
+import mongoose, { model } from "mongoose";
+import { UserStatus } from "./constants.js";
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const User = mongoose.model(
+export default model(
   "User",
 
   new Schema({
@@ -22,5 +22,3 @@ const User = mongoose.model(
     },
   })
 );
-
-module.exports = { User };

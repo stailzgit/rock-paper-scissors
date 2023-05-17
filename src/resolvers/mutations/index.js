@@ -1,13 +1,13 @@
-const registerUser = require("./registerUser");
-const createGame = require("./createGame");
-const createRound = require("./createRound");
-const roundUserPick = require("./roundUserPick");
-const loginUser = require("./loginUser.js");
-const setStatusGame = require("./setStatusGame.js");
-const logoutUser = require("./logoutUser.js");
-const sendingInvite = require("./sendingInvite.js");
+import registerUser from "./registerUser.js";
+import createGame from "./createGame.js";
+import createRound from "./createRound.js";
+import roundUserPick from "./roundUserPick.js";
+import loginUser from "./loginUser.js";
+import setStatusGame from "./setStatusGame.js";
+import logoutUser from "./logoutUser.js";
+import sendingInvite from "./sendingInvite.js";
 
-module.exports = {
+export default {
   createGame,
   registerUser,
   createRound,

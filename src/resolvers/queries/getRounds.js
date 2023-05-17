@@ -2,13 +2,13 @@
 //   return await models.Round.find({});
 // };
 
-const { transformRound } = require("../merge");
+import { transformRound } from "../merge.js";
 
 // module.exports = async (_, {}, { models }) => {
 //   return await models.Game.find({}).populate("rounds");
 // };
 
-module.exports = async (_, {}, { models }) => {
+export default async (_, {}, { models }) => {
   try {
     const rounds = await models.Round.find({});
     return rounds.map((round) => transformRound(round));

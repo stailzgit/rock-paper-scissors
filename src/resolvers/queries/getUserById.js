@@ -1,6 +1,6 @@
-const { transformGame, transformRound, transformUser } = require("../merge");
+import { transformGame, transformRound, transformUser } from "../merge.js";
 
-module.exports = async (_, { userId }, { models }) => {
+export default async (_, { userId }, { models }) => {
   try {
     const user = await models.User.findById({ _id: userId });
     return transformUser(user);

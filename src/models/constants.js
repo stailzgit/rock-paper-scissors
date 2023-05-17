@@ -1,22 +1,16 @@
-const UserStatus = {
+export const UserStatus = {
   OFFLINE: "OFFLINE",
   ONLINE: "ONLINE",
   IN_SEARCH: "IN_SEARCH",
   IN_GAME: "IN_GAME",
 };
 
-const SenderStatus = {
+export const SenderStatus = {
   SEND: "SEND",
   CANCEL: "CANCEL",
 };
 
-const RecipientStatus = {
+export const RecipientStatus = {
   SEND: "ACCEPT",
   CANCEL: "CANCEL",
-};
-
-module.exports = {
-  UserStatus,
-  SenderStatus,
-  RecipientStatus,
 };
