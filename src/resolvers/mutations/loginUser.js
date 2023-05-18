@@ -2,7 +2,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { transformUser } = require("../merge");
-const { UserStatusGames } = require("../../models/constants");
+const { UserStatus } = require("../../models/constants");
 
 module.exports = async (_, { input }, { models }) => {
   const { email, password } = input;
@@ -18,7 +18,7 @@ module.exports = async (_, { input }, { models }) => {
     { expiresIn: "1h" }
   );
   user.token = token;
-  user.statusGame = UserStatusGames.ONLINE;
+  user.statusGame = UserStatus.ONLINE;
   await user.save();
 
   return transformUser(user);
