@@ -2,9 +2,10 @@ import mongoose, { Types } from "mongoose";
 import { transformRound } from "../merge.js";
 const { Schema } = mongoose;
 const { ObjectId } = Types;
+import { Round } from "../../models/round.js";
 
-export default async (_, { input }, { models }) => {
-  const findRound = await models.Round.findById({ _id: input.roundId });
+export default async (_, { input }, {}) => {
+  const findRound = await Round.findById({ _id: input.roundId });
 
   //Pick for sender
   if (String(findRound.sender.id) === String(input.userId))

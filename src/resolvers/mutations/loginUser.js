@@ -1,12 +1,13 @@
 // const { transformGame } = require("../merge");
-import compare from "bcryptjs";
-import sign from "jsonwebtoken";
+const { compare } = require("bcryptjs");
+const { sign } = require("jsonwebtoken");
 import { transformUser } from "../merge.js";
 import { UserStatus } from "../../support/constants.js";
+import { User } from "../../models/user.js";
 
-export default async (_, { input }, { models }) => {
+export default async (_, { input }, {}) => {
   const { email, password } = input;
-  const user = await models.User.findOne({ email: email });
+  const user = await User.findOne({ email: email });
   if (!user) throw new Error("User does not exist!");
 
   const isEqual = await compare(password, user.password);

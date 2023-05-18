@@ -1,13 +1,11 @@
 import { transformGame, transformRound, transformUser } from "../merge.js";
+import { User } from "../../models/user.js";
 
-export default async (_, { userId }, { models }) => {
+export default async (_, { userId }, {}) => {
   try {
-    const user = await models.User.findById({ _id: userId });
+    const user = await User.findById({ _id: userId });
     return transformUser(user);
   } catch (err) {
     throw err;
   }
 };
-// module.exports = async (_, {}, { models }) => {
-//   return await models.User.find({}).populate("games").populate("rounds");
-// };

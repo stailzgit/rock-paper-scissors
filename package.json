@@ -14,7 +14,6 @@
     "@apollo/server": "^4.7.1",
     "@graphql-tools/schema": "^9.0.19",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dataloader": "^1.4.0",
     "dotenv": "^16.0.3",
@@ -25,5 +24,8 @@
     "mongoose": "^6.10.0",
     "nodemon": "^2.0.22",
     "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2"
   }
 }

@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 import { transformGame, transformUser } from "../merge.js";
+import { User } from "../../models/user.js";
 
-export default async (_, { senderId, recipientId }, { models }) => {
+export default async (_, { senderId, recipientId }, {}) => {
   try {
-    const sender = await models.User.findById({ _id: senderId });
-    const recipient = await models.User.findById({ _id: recipientId });
+    const sender = await User.findById({ _id: senderId });
+    const recipient = await User.findById({ _id: recipientId });
 
     //Check already exist invite
     if (

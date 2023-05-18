@@ -14,7 +14,6 @@ import { ApolloServer } from "@apollo/server";
 import typeDefs from "./types/index.js";
 // const typeDefs = require("./types");
 import * as resolvers from "./resolvers/index.js";
-import { models } from "./models/index.js";
 import authContext from "./middleware/auth.js";
 import connectDB from "./config/db.js";
 
@@ -27,6 +26,11 @@ import connectDB from "./config/db.js";
 
 connectDB();
 const app = express();
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//   })
+// );
 const httpServer = createServer(app);
 
 const wsServer = new WebSocketServer({
@@ -39,13 +43,15 @@ const serverCleanup = useServer({ schema }, wsServer);
 
 const server = new ApolloServer({
   schema,
-  // context: { models },
+  // context: {},
   // context: async ({ req }) => ({ token: req.headers.token }),
   csrfPrevention: true,
   cors: {
     origin: "*",
     credentials: true,
   },
+  // cors: { origin: ["http://localhost:3000"] },
+
   plugins: [
     ApolloServerPluginDrainHttpServer({ httpServer }),
     {

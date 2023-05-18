@@ -4,9 +4,11 @@ import sign from "jsonwebtoken";
 import { transformUser } from "../merge.js";
 // import { Apollo } from "@apollo/server";
 
-export default async (_, { input }, { models }) => {
+import { User } from "../../models/user.js";
+
+export default async (_, { input }, {}) => {
   const { name, email, password } = input;
-  const existingUser = await models.User.findOne({ email: email });
+  const existingUser = await User.findOne({ email: email });
 
   if (existingUser) {
     throw new Error(
