@@ -1,16 +1,9 @@
-// module.exports = async (_, {}, { models }) => {
-//   return await models.Round.find({});
-// };
-
 const { transformRound } = require("../merge");
+const { Round } = require("../../models/round");
 
-// module.exports = async (_, {}, { models }) => {
-//   return await models.Game.find({}).populate("rounds");
-// };
-
-module.exports = async (_, {}, { models }) => {
+module.exports = async () => {
   try {
-    const rounds = await models.Round.find({});
+    const rounds = await Round.find({});
     return rounds.map((round) => transformRound(round));
   } catch (err) {
     throw err;

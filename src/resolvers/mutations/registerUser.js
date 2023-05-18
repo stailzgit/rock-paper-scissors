@@ -3,10 +3,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { transformUser } = require("../merge");
 const { ApolloError } = require("@apollo/server");
+const { User } = require("../../models/user");
 
-module.exports = async (_, { input }, { models }) => {
+module.exports = async (_, { input }) => {
   const { name, email, password } = input;
-  const existingUser = await models.User.findOne({ email: email });
+  const existingUser = await User.findOne({ email: email });
 
   if (existingUser) {
     throw new ApolloError(
@@ -17,7 +18,7 @@ module.exports = async (_, { input }, { models }) => {
 
   const encryptedPassword = await bcrypt.hash(password, 10);
 
-  const newUser = new models.User({
+  const newUser = new User({
     name,
     email: email.toLowerCase(),
     password: encryptedPassword,

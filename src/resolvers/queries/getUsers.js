@@ -1,7 +1,7 @@
 const { transformGame, transformRound, transformUser } = require("../merge");
 const { User } = require("../../models/user");
 
-module.exports = async (_, {}, {}) => {
+module.exports = async () => {
   try {
     const users = await User.find({});
     return users.map((user) => transformUser(user));
@@ -9,6 +9,3 @@ module.exports = async (_, {}, {}) => {
     throw err;
   }
 };
-// module.exports = async (_, {}, { models }) => {
-//   return await models.User.find({}).populate("games").populate("rounds");
-// };

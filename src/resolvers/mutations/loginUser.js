@@ -3,10 +3,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { transformUser } = require("../merge");
 const { UserStatus } = require("../../models/constants");
+const { User } = require("../../models/user");
 
 module.exports = async (_, { input }, { models }) => {
   const { email, password } = input;
-  const user = await models.User.findOne({ email: email });
+  const user = await User.findOne({ email: email });
   if (!user) throw new Error("User does not exist!");
 
   const isEqual = await bcrypt.compare(password, user.password);

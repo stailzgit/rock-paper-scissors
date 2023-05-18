@@ -11,12 +11,19 @@ const SenderStatus = {
 };
 
 const RecipientStatus = {
-  SEND: "ACCEPT",
+  ACCEPT: "ACCEPT",
   CANCEL: "CANCEL",
+};
+
+const CHOICE = {
+  ROCK: "ROCK",
+  PAPER: "PAPER",
+  SCISSORS: "SCISSORS",
 };
 
 module.exports = {
   UserStatus,
   SenderStatus,
   RecipientStatus,
+  CHOICE,
 };

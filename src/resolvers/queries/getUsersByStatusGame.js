@@ -1,8 +1,9 @@
 const { transformGame, transformRound, transformUser } = require("../merge");
+const { User } = require("../../models/user");
 
-module.exports = async (_, { statusGame, excludeMe }, { models }) => {
+module.exports = async (_, { statusGame, excludeMe }) => {
   try {
-    const users = await models.User.find({
+    const users = await User.find({
       $and: [{ statusGame: statusGame }, { _id: { $ne: excludeMe } }],
     });
     return users.map((user) => transformUser(user));

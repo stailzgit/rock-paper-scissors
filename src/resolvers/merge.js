@@ -2,6 +2,10 @@ const DataLoader = require("dataloader");
 
 const { User, Game, Round } = require("../models");
 
+// const { Game } = require("../models/game");
+// const { User } = require("../models/user");
+// const { Round } = require("../models/round");
+
 const userLoader = new DataLoader((userIds) =>
   User.find({ _id: { $in: userIds } })
 );
@@ -64,15 +68,15 @@ const transformGame = (game) => {
     winnerGameId: userFormat.bind(this, game.winnerGameId),
     sender: {
       id: userFormat.bind(this, game.sender.id),
-      ...game.sender,
-      // score: game.sender.score,
-      // status: game.sender.status,
+      // ...game.sender,
+      score: game.sender.score,
+      status: game.sender.status,
     },
     recipient: {
       id: userFormat.bind(this, game.recipient.id),
-      ...game.recipient,
-      // score: game.recipient.score,
-      // status: game.recipient.status,
+      // ...game.recipient,
+      score: game.recipient.score,
+      status: game.recipient.status,
     },
     rounds: roundsFormat.bind(this, game.rounds),
   };
@@ -96,11 +100,11 @@ const transformRound = (round) => {
     game: () => gameFormat(game),
     winnerRoundId: () => userFormat(winnerRoundId),
     sender: {
-      user: () => userFormat(sender.id),
+      id: () => userFormat(sender.id),
       pick: sender.pick,
     },
     recipient: {
-      user: () => userFormat(recipient.user),
+      id: () => userFormat(recipient.user),
       pick: recipient.pick,
     },
   };

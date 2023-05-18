@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 const { transformRound } = require("../merge");
 const { Schema } = mongoose;
 const { ObjectId } = mongoose.Types;
+const { Round } = require("../../models/round");
 
-module.exports = async (_, { input }, { models }) => {
-  const findRound = await models.Round.findById({ _id: input.roundId });
+module.exports = async (_, { input }) => {
+  const findRound = await Round.findById({ _id: input.roundId });
 
   //Pick for sender
   if (String(findRound.sender.id) === String(input.userId))
@@ -13,7 +14,7 @@ module.exports = async (_, { input }, { models }) => {
   //Pick for recipient
   if (String(findRound.recipient.id) === String(input.userId))
     findRound.recipient.pick = input.pick;
-
+  const { Game } = require("../../models/game");
   //End round if 2 users made pick
   if (findRound.sender.pick && findRound.recipient.pick) {
     findRound.winnerRoundId = getWinnerRound(
@@ -26,7 +27,7 @@ module.exports = async (_, { input }, { models }) => {
 
   //Check end game if max score
   if (findRound.winnerRoundId !== null) {
-    const findGame = await models.Game.findById({
+    const findGame = await Game.findById({
       _id: findRound.game,
     });
 

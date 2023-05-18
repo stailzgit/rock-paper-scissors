@@ -1,13 +1,11 @@
 const { transformGame, transformRound, transformUser } = require("../merge");
+const { User } = require("../../models/user");
 
-module.exports = async (_, { userId }, { models }) => {
+module.exports = async (_, { userId }) => {
   try {
-    const user = await models.User.findById({ _id: userId });
+    const user = await User.findById({ _id: userId });
     return transformUser(user);
   } catch (err) {
     throw err;
   }
 };
-// module.exports = async (_, {}, { models }) => {
-//   return await models.User.find({}).populate("games").populate("rounds");
-// };

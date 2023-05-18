@@ -13,7 +13,7 @@ const Game = mongoose.model(
       status: {
         type: String,
         enum: [...Object.values(SenderStatus)],
-        required: true,
+        // default: SenderStatus.SEND,
       },
     },
     recipient: {
@@ -22,7 +22,7 @@ const Game = mongoose.model(
       status: {
         type: String,
         enum: [...Object.values(RecipientStatus)],
-        required: true,
+        // default: RecipientStatus.ACCEPT,
       },
     },
     rounds: [{ type: ObjectId, ref: "Round" }],

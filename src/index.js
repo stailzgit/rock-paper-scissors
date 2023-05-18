@@ -36,7 +36,7 @@ const cors = require("cors");
 
   const server = new ApolloServer({
     schema,
-    // context: { models },
+    context: { models },
     csrfPrevention: true,
     cors: {
       origin: "*",

@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const { transformGame, transformUser } = require("../merge");
+const { User } = require("../../models/user");
 
 module.exports = async (_, { senderId, recipientId }, { models }) => {
   try {
-    const sender = await models.User.findById({ _id: senderId });
-    const recipient = await models.User.findById({ _id: recipientId });
+    const sender = await User.findById({ _id: senderId });
+    const recipient = await User.findById({ _id: recipientId });
 
     //Check already exist invite
     if (
