@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { transformRound } = require("../merge");
 const { Schema } = mongoose;
 const { ObjectId } = mongoose.Types;
-const { Round } = require("../../models/round");
+const { Round } = require("../../models");
 
 module.exports = async (_, { input }) => {
   const findRound = await Round.findById({ _id: input.roundId });

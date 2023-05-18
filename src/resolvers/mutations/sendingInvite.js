@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const { transformGame, transformUser } = require("../merge");
-const { User } = require("../../models/user");
+const { User } = require("../../models");
 
-module.exports = async (_, { senderId, recipientId }, { models }) => {
+module.exports = async (_, { senderId, recipientId }) => {
   try {
     const sender = await User.findById({ _id: senderId });
     const recipient = await User.findById({ _id: recipientId });

@@ -1,5 +1,5 @@
 const { transformGame, transformRound, transformUser } = require("../merge");
-const { User } = require("../../models/user");
+const { User } = require("../../models");
 
 module.exports = async () => {
   try {

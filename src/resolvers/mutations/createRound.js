@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const { transformRound } = require("../merge");
 const { ObjectId } = mongoose.Types;
-const { Round } = require("../../models/round");
-const { Game } = require("../../models/game");
+const { Round, Game } = require("../../models");
 
 module.exports = async (_, { input }) => {
   const newRound = new Round({
