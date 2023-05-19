@@ -2,17 +2,9 @@ const DataLoader = require("dataloader");
 
 const { User, Game, Round } = require("../models");
 
-// const { Game } = require("../models/game");
-// const { User } = require("../models/user");
-// const { Round } = require("../models/round");
+const userLoader = new DataLoader((userIds) => User.find({ _id: { $in: userIds } }));
 
-const userLoader = new DataLoader((userIds) =>
-  User.find({ _id: { $in: userIds } })
-);
-
-const gameLoader = new DataLoader((gameIds) =>
-  Game.find({ _id: { $in: gameIds } })
-);
+const gameLoader = new DataLoader((gameIds) => Game.find({ _id: { $in: gameIds } }));
 
 const gamesFormat = async (gameIds) => {
   try {
@@ -70,15 +62,15 @@ const transformGame = (game) => {
       id: userFormat.bind(this, game.sender.id),
       // ...game.sender,
       score: game.sender.score,
-      status: game.sender.status,
+      status: game.sender.status
     },
     recipient: {
       id: userFormat.bind(this, game.recipient.id),
       // ...game.recipient,
       score: game.recipient.score,
-      status: game.recipient.status,
+      status: game.recipient.status
     },
-    rounds: roundsFormat.bind(this, game.rounds),
+    rounds: roundsFormat.bind(this, game.rounds)
   };
 };
 
@@ -88,7 +80,7 @@ const transformUser = (user) => {
     id: user.id,
     games: gamesFormat.bind(this, user.games),
     outgoingInvitations: usersFormat.bind(this, user.outgoingInvitations),
-    incomingInvitations: usersFormat.bind(this, user.incomingInvitations),
+    incomingInvitations: usersFormat.bind(this, user.incomingInvitations)
   };
 };
 
@@ -101,17 +93,17 @@ const transformRound = (round) => {
     winnerRoundId: () => userFormat(winnerRoundId),
     sender: {
       id: () => userFormat(sender.id),
-      pick: sender.pick,
+      pick: sender.pick
     },
     recipient: {
       id: () => userFormat(recipient.user),
-      pick: recipient.pick,
-    },
+      pick: recipient.pick
+    }
   };
 };
 
 module.exports = {
   transformUser,
   transformRound,
-  transformGame,
+  transformGame
 };
