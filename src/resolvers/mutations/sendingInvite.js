@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { transformGame, transformUser } = require("../merge");
-const { User } = require("../../models");
+const { User, Game } = require("../../models");
 
 module.exports = async (_, { senderId, recipientId }) => {
   try {
@@ -12,18 +12,30 @@ module.exports = async (_, { senderId, recipientId }) => {
       sender.outgoingInvitations.includes(recipientId) ||
       recipient.incomingInvitations.includes(senderId)
     ) {
-      throw Error("Invite already sent");
+      throw Error("Invite already send");
     }
 
     sender.outgoingInvitations.push(recipientId);
     recipient.incomingInvitations.push(senderId);
 
+    //Create Game
+    const newGame = new Game(input);
+    newGame.sender = { id: input.senderId, score: 0 };
+    newGame.recipient = { id: input.recipientId, score: 0 };
+
+    const createdGame = await newGame.save();
+
+    sender.games.push(createdGame.id);
+    recipient.games.push(createdGame.id);
+
     const updateSender = await sender.save();
     const updateRecipient = await recipient.save();
-    console.log("updateSender", updateSender);
-    console.log("updateRecipient", updateRecipient);
 
-    return [transformUser(updateSender), transformUser(updateSender)];
+    return {
+      sender: transformUser(updateSender),
+      recipient: transformUser(updateRecipient)
+    };
+    // return [transformUser(updateSender), transformUser(updateRecipient)];
   } catch (error) {
     throw error;
   }

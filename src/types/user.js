@@ -41,12 +41,17 @@ module.exports = gql`
     password: String
   }
 
+  type sendingInviteReturn {
+    sender: User
+    recipient: User
+  }
+
   type Mutation {
     registerUser(input: RegisterInput): User
     loginUser(input: LoginInput): User
     logoutUser(userId: ID!): User
     setStatusGame(userId: ID!, statusGame: statusGame!): setStatusGameReturn
-    sendingInvite(senderId: ID!, recipientId: ID!): [User]
+    sendingInvite(senderId: ID!, recipientId: ID!): sendingInviteReturn
   }
 
   type Query {
