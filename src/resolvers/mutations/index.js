@@ -15,5 +15,5 @@ module.exports = {
   loginUser,
   setStatusGame,
   logoutUser,
-  sendingInvite,
+  sendingInvite
 };

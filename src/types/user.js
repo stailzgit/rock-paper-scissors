@@ -60,4 +60,8 @@ module.exports = gql`
     getUsersByStatusGame(statusGame: statusGame!, excludeMe: ID!): [User]
     getGamesByUser(userId: ID!): [Game!]
   }
+
+  # type Subscription {
+  #   # sendingInvite(senderId: ID!, recipientId: ID!): String
+  # }
 `;
